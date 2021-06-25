@@ -5,6 +5,8 @@ const range = document.querySelector("#jsRange");
 const mode = document.querySelector("#jsMode");
 const saveBtn = document.querySelector("#jsSave");
 
+let painting = false;
+let filling = false;
 
 canvas.width = 800;
 canvas.height = 800;
@@ -15,16 +17,9 @@ ctx.fillStyle = "black";
 ctx.strokeStyle = "black";
 ctx.lineWidth = 2.5;
 
-let painting = false;
-let filling = false;
 
-function stopPainting(){
-    painting = false;
-}
-
-function startPainting(){
-    painting = true;
-}
+function stopPainting(){    painting = false;   }
+function startPainting(){    painting = true;   }
 
 function onMouseMove(event){
     const x = event.offsetX;
@@ -32,15 +27,13 @@ function onMouseMove(event){
     if(!painting){
         ctx.beginPath();
         ctx.moveTo(x,y);
-    } else {
+    } else { 
         ctx.lineTo(x,y);
         ctx.stroke();
+        lineStep(x,y);
     }
 }
 
-function onMouseUp(){
-    painting = false;
-}
 function handleColorClick(event){
     const color = event.target.style.backgroundColor;
     ctx.strokeStyle = color;
@@ -96,3 +89,42 @@ if(range){
 mode.addEventListener("click", handleModeClick);
 
 saveBtn.addEventListener("click", handleSaveClick);
+
+
+// DeleteBtn
+const deleteBtn = document.querySelector("#jsDelete");
+deleteBtn.addEventListener("click",handleDeleteScreen);
+function handleDeleteScreen(){
+    ctx.fillStyle = "white";
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+}
+
+
+//back 1step
+const backBtn = document.querySelector("#jsBack");
+
+let lineStepsArr = [];
+let lineSteps = [];
+
+backBtn.addEventListener("click",beforeLine);
+function beforeLine(){
+    // 저장소에서 스트링을 들고온다
+    // 스트링을 어레이로 변환한다.
+    // 변환 후 POP을 이용하여 화면에 표시한다.
+}
+
+function lineStep(x,y){
+    lineSteps.push({"X" :x, "Y":y});
+}
+
+//드로잉 정보를 어레이 객체에 저장하기
+canvas.addEventListener("mouseup",savedLine);
+function savedLine(){
+    lineStepsArr.push(lineSteps);
+
+// 왜 배열이 연결되서 저장되는가 
+
+    localStorage.setItem("xyVAlUE",JSON.stringify(lineStepsArr));
+
+    console.log(lineStepsArr);
+}
