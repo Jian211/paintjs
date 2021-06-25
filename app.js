@@ -21,18 +21,17 @@ ctx.lineWidth = 2.5;
 function stopPainting(){    painting = false;   }
 function startPainting(){    painting = true;   }
 
-function onMouseMove(event){
-    const x = event.offsetX;
-    const y = event.offsetY;    
-    if(!painting){
-        ctx.beginPath();
-        ctx.moveTo(x,y);
-    } else { 
-        ctx.lineTo(x,y);
-        ctx.stroke();
-        lineStep(x,y);
-    }
-}
+// function onMouseMove(event){
+//     const x = event.offsetX;
+//     const y = event.offsetY;    
+//     if(!painting){
+//         ctx.beginPath();
+//         ctx.moveTo(x,y);
+//     } else { 
+//         ctx.lineTo(x,y);
+//         ctx.stroke();
+//     }
+// }
 
 function handleColorClick(event){
     const color = event.target.style.backgroundColor;
@@ -118,13 +117,22 @@ function lineStep(x,y){
 }
 
 //드로잉 정보를 어레이 객체에 저장하기
-canvas.addEventListener("mouseup",savedLine);
-function savedLine(){
-    lineStepsArr.push(lineSteps);
+canvas.addEventListener("mousemove",savedLine);
+
+function savedLine(event){
+    const x = event.offsetX;
+    const y = event.offsetY;
+    
+    ctx.beginPath();
+    ctx.moveTo(x,y);
+    ctx.lineTo(x,y);
+    ctx.stroke();
+    
+
+
+//    lineStepsArr.push(lineSteps);
 
 // 왜 배열이 연결되서 저장되는가 
 
     localStorage.setItem("xyVAlUE",JSON.stringify(lineStepsArr));
-
-    console.log(lineStepsArr);
 }
