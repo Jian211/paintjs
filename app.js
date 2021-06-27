@@ -21,17 +21,17 @@ ctx.lineWidth = 2.5;
 function stopPainting(){    painting = false;   }
 function startPainting(){    painting = true;   }
 
-// function onMouseMove(event){
-//     const x = event.offsetX;
-//     const y = event.offsetY;    
-//     if(!painting){
-//         ctx.beginPath();
-//         ctx.moveTo(x,y);
-//     } else { 
-//         ctx.lineTo(x,y);
-//         ctx.stroke();
-//     }
-// }
+function onMouseMove(event){
+    const x = event.offsetX;
+    const y = event.offsetY;    
+    if(!painting){
+        ctx.beginPath();
+        ctx.moveTo(x,y);
+    } else { 
+        ctx.lineTo(x,y);
+        ctx.stroke();
+    }
+}
 
 function handleColorClick(event){
     const color = event.target.style.backgroundColor;
