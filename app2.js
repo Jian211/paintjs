@@ -3,8 +3,8 @@ const ctx = canvas.getContext("2d");
 
 let paintingStatus = false;
 
-canvas.Width = 800;
-canvas.height= 800;
+canvas.Width = 320;
+canvas.height= 460;
 ctx.strokeStyle = "black";
 ctx.lineWidth = "2.5";
 
@@ -24,8 +24,9 @@ function touchstart(){
 function touching(event){
     event.preventDefault();
 
-    const x = event.changedTouches[0].clientX; 
-    const y = event.changedTouches[0].clientY;
+    const x = event.changedTouches[0].pageX; 
+    const y = event.changedTouches[0].pageY;
+    console.log(event.changedTouches[0])
     ctx.lineTo(x,y);
     ctx.stroke();
     console.log();
