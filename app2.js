@@ -87,3 +87,14 @@ brush.addEventListener("input", handleRange);
 function handleRange(event){
     ctx.lineWidth = event.target.value; 
 }
+
+//save 
+const saveBtn = document.querySelector("#jsSave");
+
+saveBtn.addEventListener("click",handleSave);
+function handleSave(event){
+    const link = document.createElement("a");
+    link.href = canvas.toDataURL();
+    link.download = `img01`;
+    link.click();
+}
